@@ -702,29 +702,29 @@ addPeerInChannel() {
   echo "========= Config transaction to add ${PEER_ORG_NAME} to channel created ===== "
   echo
 
-  echo
-  echo "========= Submitting transaction from orderer admin which signs it as well ========= "
-  echo
-  set -x
-  peer channel update -f ${PEER_ORG_NAME}_update_in_envelope.pb -c ${CHANNEL_NAME} -o ${ORDERER_ADDRESS} --tls --cafile ${ORDERER_TLS_CA} --clientauth --certfile $ADMIN_TLS_CERTFILE --keyfile $ADMIN_TLS_KEYFILE &> $LOG_FILE
-  res=$?
-  set +x
-  cat $LOG_FILE
-  verifyResult $res "peer channel update transaction failed"
+  #echo
+  #echo "========= Submitting transaction from orderer admin which signs it as well ========= "
+  #echo
+  #set -x
+  #peer channel update -f ${PEER_ORG_NAME}_update_in_envelope.pb -c ${CHANNEL_NAME} -o ${ORDERER_ADDRESS} --tls --cafile ${ORDERER_TLS_CA} --clientauth --certfile $ADMIN_TLS_CERTFILE --keyfile $ADMIN_TLS_KEYFILE &> $LOG_FILE
+  #res=$?
+  #set +x
+  #cat $LOG_FILE
+  #verifyResult $res "peer channel update transaction failed"
 
-  echo
-  echo "========= Config transaction to add ${PEER_ORG_NAME} to channel ${CHANNEL_NAME} submitted! =========== "
-  echo
+  #echo
+  #echo "========= Config transaction to add ${PEER_ORG_NAME} to channel ${CHANNEL_NAME} submitted! =========== "
+  #echo
 
-  ordererTLSStorageURI="$FileShare/${PEER_ORG_NAME}?$SASToken"
-  mkdir -p /tmp/hlf/orderer/tlscacerts
-  cp /var/hyperledger/peer/msp/tlscacerts/ca.crt /tmp/hlf/orderer/tlscacerts/
-  azcopy copy "/tmp/hlf/orderer" $ordererTLSStorageURI --recursive &> $LOG_FILE
-  res=$?
-  verifyResult $res "Orderer TLS root certificate upload to '${FileShare}' file storage failed"
-  echo
-  echo "=========== Uploaded Orderer TLS Root certificate to '${FileShare}' File storage! =========== "
-  echo
+  #ordererTLSStorageURI="$FileShare/${PEER_ORG_NAME}?$SASToken"
+  #mkdir -p /tmp/hlf/orderer/tlscacerts
+  #cp /var/hyperledger/peer/msp/tlscacerts/ca.crt /tmp/hlf/orderer/tlscacerts/
+  #azcopy copy "/tmp/hlf/orderer" $ordererTLSStorageURI --recursive &> $LOG_FILE
+  #res=$?
+  #verifyResult $res "Orderer TLS root certificate upload to '${FileShare}' file storage failed"
+  #echo
+  #echo "=========== Uploaded Orderer TLS Root certificate to '${FileShare}' File storage! =========== "
+  #echo
 }
 
 while getopts ":h" opt; do
